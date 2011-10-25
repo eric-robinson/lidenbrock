@@ -14,13 +14,21 @@
  */
 + (NSManagedObjectContext *) defaultContext
 {
+    
     // Get context
     //
     NSError *error = NULL;
+    
+    #if TARGET_OS_IPHONE
     NSManagedObjectContext *context = (NSManagedObjectContext*)[LBObjectManager getValueFromProperty: @"managedObjectContext"
                                                                                             inObject: [[UIApplication sharedApplication] delegate] 
                                                                                                error: &error];
+    #else
+    NSManagedObjectContext *context = (NSManagedObjectContext*)[LBObjectManager getValueFromProperty: @"managedObjectContext"
+                                                                                            inObject: [[NSApplication sharedApplication] delegate] 
+                                                                                               error: &error];
     
+    #endif
 	return context;
 }
 
